@@ -1,0 +1,28 @@
+.Navaigation {
+  margin-bottom: 20px;
+}
+
+.Brand {
+  color: white;
+  font-size: 16px;
+  margin-top: -20px;
+}
+
+.NavLink {
+  text-decoration: none;
+  color: blanchedalmond;
+  font-size: 20px;
+  margin-top: -20px;
+  margin-left: 15px;
+  text-transform: uppercase;
+}
+.NavLink:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.active {
+  text-shadow: 2px 1px black;
+  color: white;
+  font-weight: 600;
+}
