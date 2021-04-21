@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as actionType from './actionTypes';
 
+// Auth Success Action Create
 export const authSuccess = (token, userId) => ({
     type: actionType.AUTH_SUCCESS,
     payload: {
@@ -9,8 +10,55 @@ export const authSuccess = (token, userId) => ({
     },
 });
 
-// eslint-disable-next-line no-unused-vars
+// Auth Loading Action Create
+export const authLoading = (isLoading) => ({
+    type: actionType.AUTH_LOADING,
+    payload: isLoading,
+});
+
+// Auth Failed Action Create
+export const authFailed = (errMsg) => ({
+    type: actionType.AUTH_FAILED,
+    payload: errMsg,
+});
+
+// Auth Failed Action Create
+export const authErrRemove = () => ({
+    type: actionType.AUTH_ERR_REMOVE,
+});
+
+// Logout Check Action & Dispatch
+export const authLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('expiresIn');
+    return {
+        type: actionType.AUTH_LOGOUT,
+    };
+};
+
+// Authentication Check Action & Dispatch
+export const authCheck = () => (dispatch) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        // Logout
+        dispatch(authLogout());
+    } else {
+        const expiresIn = localStorage.getItem('expiresIn');
+        if (expiresIn <= new Date().getTime()) {
+            // Logout
+            dispatch(authLogout());
+        } else {
+            const userId = localStorage.getItem('userId');
+            dispatch(authSuccess(token, userId));
+        }
+    }
+};
+
+// Signup and Login Action Create & authSuccess, authLoading, authFailed Dispatch
 export const auth = (email, password, mode) => (dispatch) => {
+    // Loading Dispatch
+    dispatch(authLoading(true));
     const credential = {
         email,
         password,
@@ -27,26 +75,18 @@ export const auth = (email, password, mode) => (dispatch) => {
     axios
         .post(AUTH_URL, credential)
         .then((res) => {
+            // Loading Dispatch
+            dispatch(authLoading(false));
             localStorage.setItem('token', res.data.idToken);
-            localStorage.setItem('userId', res.data.loaclId);
+            localStorage.setItem('userId', res.data.localId);
             const expired = new Date().getTime() + res.data.expiresIn * 1000;
             localStorage.setItem('expiresIn', expired);
-            dispatch(authSuccess(res.data.idToken, res.data.loaclId));
+            dispatch(authSuccess(res.data.idToken, res.data.localId));
         })
-        .catch((error) => console.log(error.message));
-};
-
-export const authCheck = () => (dispatch) => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        // Logout
-    } else {
-        const expiresIn = localStorage.getItem('expiresIn');
-        if (expiresIn <= new Date().getTime()) {
-            // Logout
-        } else {
-            const userId = localStorage.getItem('userId');
-            dispatch(authSuccess(token, userId));
-        }
-    }
+        .catch((err) => {
+            // Loading Dispatch
+            dispatch(authLoading(false));
+            console.log(err.response.data.error.message);
+            dispatch(authFailed(err.response.data.error.message));
+        });
 };

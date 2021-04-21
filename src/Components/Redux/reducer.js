@@ -14,6 +14,8 @@ const INITIAL_STATE = {
     ],
     token: null,
     userId: null,
+    authLoading: false,
+    authErrorMeg: null,
     orders: [],
     isLoading: true,
     isError: false,
@@ -95,11 +97,38 @@ const reducer = (state = INITIAL_STATE, action) => {
                 isError: true,
             };
         }
+        // Auth Case Start
         case actionType.AUTH_SUCCESS: {
             return {
                 ...state,
                 token: action.payload.token,
                 userId: action.payload.userId,
+            };
+        }
+        case actionType.AUTH_LOGOUT: {
+            return {
+                ...state,
+                token: null,
+                userId: null,
+                authErrorMeg: null,
+            };
+        }
+        case actionType.AUTH_LOADING: {
+            return {
+                ...state,
+                authLoading: action.payload,
+            };
+        }
+        case actionType.AUTH_FAILED: {
+            return {
+                ...state,
+                authErrorMeg: action.payload,
+            };
+        }
+        case actionType.AUTH_ERR_REMOVE: {
+            return {
+                ...state,
+                authErrorMeg: null,
             };
         }
         default:

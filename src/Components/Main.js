@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Auth from './Auth/Auth';
+import Logout from './Auth/Logout';
 import BurgerBuilder from './BurgerBuilder/BurgerBuilder';
 import Checkout from './Checkout/Checkout';
 import Header from './Header/Header';
@@ -40,6 +41,7 @@ class Main extends Component {
                     <Route path="/" exact component={BurgerBuilder} />
                     <Route path="/orders" component={Orders} />
                     <Route path="/checkout" component={Checkout} />
+                    <Route path="/logout" component={Logout} />
                     <Redirect to="/" />
                 </Switch>
             );

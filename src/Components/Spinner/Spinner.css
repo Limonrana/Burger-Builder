@@ -59,5 +59,16 @@
 }
 
 .mainLoader {
-  margin-top: 35%;
+  margin-top: 32%;
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 766px) {
+  .mainLoader {
+    margin-top: 80%;
+  }
+}
+@media screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+  .mainLoader {
+    margin-top: 70%;
+  }
 }

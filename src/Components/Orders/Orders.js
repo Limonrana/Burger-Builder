@@ -6,21 +6,23 @@ import Spinner from '../Spinner/Spinner';
 import SingleOrder from './SingleOrder';
 
 const mapDispatchToProps = (dispatch) => ({
-    fatchOrders: () => dispatch(fatchOrder()),
+    fatchOrders: (token, userId) => dispatch(fatchOrder(token, userId)),
 });
 
 const mapStateToProps = (state) => ({
     getOrders: state.orders,
     isLoadings: state.isLoading,
     isErrors: state.isError,
+    token: state.token,
+    userId: state.userId,
 });
 
 class Orders extends Component {
     state = {};
 
     componentDidMount() {
-        const { fatchOrders } = this.props;
-        fatchOrders();
+        const { fatchOrders, token, userId } = this.props;
+        fatchOrders(token, userId);
     }
 
     render() {

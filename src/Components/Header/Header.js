@@ -31,6 +31,11 @@ const Header = ({ token }) => {
                         Orders
                     </NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink exact className="NavLink" to="/logout">
+                        Logout
+                    </NavLink>
+                </NavItem>
             </>
         );
     }

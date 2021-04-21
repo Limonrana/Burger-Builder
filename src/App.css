@@ -51,6 +51,10 @@
   width: 60%;
 }
 
+.App-Container.builder {
+  margin: 11% auto 11% auto;
+}
+
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -62,4 +66,19 @@ hr {
 
 .switch-btn {
   text-align: center;
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 768px) {
+  .checkout-form {
+    width: 100%;
+  }
+  .orders {
+    padding: 40px 0px 40px 0px;
+  }
+  .App-Container.login {
+    width: 100%;
+  }
+  .App-Container.signup {
+    width: 100%;
+  }
 }

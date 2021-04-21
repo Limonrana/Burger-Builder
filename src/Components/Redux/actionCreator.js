@@ -30,9 +30,12 @@ export const orderLoadFailed = (error) => ({
 });
 
 // eslint-disable-next-line no-unused-vars
-export const fatchOrder = () => (dispatch) => {
+export const fatchOrder = (token, userId) => (dispatch) => {
+    const queryString = `&orderBy="userId"&equalTo="${userId}"`;
     axios
-        .get('https://burger-builder-7a646-default-rtdb.firebaseio.com/orders.json')
+        .get(
+            `https://burger-builder-7a646-default-rtdb.firebaseio.com/orders.json?auth=${token}${queryString}`
+        )
         .then((res) => dispatch(loadOrders(res.data)))
         .catch((error) => dispatch(orderLoadFailed(error)));
 };

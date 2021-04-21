@@ -50,7 +50,7 @@ class BurgerBuilder extends Component {
         const { isModalOpen } = this.state;
         document.title = 'Burger Builder';
         return (
-            <div>
+            <div className="App-Container builder">
                 <div className="d-flex flex-md-row flex-column">
                     <Burger ingredients={ingredients} />
                     <Controls
