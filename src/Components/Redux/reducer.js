@@ -12,6 +12,11 @@ const INITIAL_STATE = {
         { type: 'cheese', amount: 0 },
         { type: 'meat', amount: 0 },
     ],
+    token: null,
+    userId: null,
+    orders: [],
+    isLoading: true,
+    isError: false,
     toatlPrice: 80,
     isPurchasable: false,
 };
@@ -63,6 +68,38 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ],
                 toatlPrice: 80,
                 isPurchasable: false,
+            };
+        }
+        case actionType.LOAD_ORDERS: {
+            const order = [];
+            // eslint-disable-next-line no-restricted-syntax
+            for (const key in action.payload) {
+                if (Object.hasOwnProperty.call(action.payload, key)) {
+                    const element = action.payload[key];
+                    order.push({
+                        ...element,
+                        id: key,
+                    });
+                }
+            }
+            return {
+                ...state,
+                orders: order,
+                isLoading: false,
+            };
+        }
+        case actionType.ORDER_LOAD_FAILED: {
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+            };
+        }
+        case actionType.AUTH_SUCCESS: {
+            return {
+                ...state,
+                token: action.payload.token,
+                userId: action.payload.userId,
             };
         }
         default:

@@ -22,3 +22,44 @@
 .checkout-btn {
   background-color: #d70f64;
 }
+
+.orders {
+  border: 1px solid #d70f64;
+  padding: 40px;
+  margin: 4% auto 4% auto;
+  border-radius: 10px;
+  box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+  -webkit-box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+  -moz-box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+}
+.App-Container {
+  border: 1px solid #d70f64;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+  -webkit-box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+  -moz-box-shadow: 0px 1px 20px 4px rgba(215, 15, 100, 0.74);
+}
+
+.App-Container.login {
+  margin: 17% auto 16% auto;
+  width: 60%;
+}
+
+.App-Container.signup {
+  margin: 11% auto 11% auto;
+  width: 60%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+hr {
+  border-color: white;
+}
+
+.switch-btn {
+  text-align: center;
+}

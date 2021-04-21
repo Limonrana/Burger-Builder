@@ -118,6 +118,7 @@ class Checkout extends Component {
     render() {
         const { values, isLoading } = this.state;
         const { totalPrice, isPurchasable } = this.props;
+        document.title = 'Checkout - Burger Builder';
         const form = (
             <div className="checkout-form">
                 <h3 className="checkout-title">Checkout Form</h3>

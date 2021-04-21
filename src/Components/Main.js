@@ -1,18 +1,56 @@
-import { Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Auth from './Auth/Auth';
 import BurgerBuilder from './BurgerBuilder/BurgerBuilder';
 import Checkout from './Checkout/Checkout';
 import Header from './Header/Header';
 import Orders from './Orders/Orders';
+import { authCheck } from './Redux/authActionCreator';
 
-const Main = () => (
-    <div>
-        <Header />
-        <div className="container">
-            <Route path="/" exact component={BurgerBuilder} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/checkout" component={Checkout} />
-        </div>
-    </div>
-);
+const mapStateToProps = (state) => ({
+    token: state.token,
+});
 
-export default Main;
+const mapDispatchToProps = (dispatch) => ({
+    authentication: () => dispatch(authCheck()),
+});
+
+class Main extends Component {
+    state = {};
+
+    componentDidMount() {
+        const { authentication } = this.props;
+        authentication();
+    }
+
+    render() {
+        const { token } = this.props;
+        let routes = null;
+        if (token === null) {
+            routes = (
+                <Switch>
+                    <Route path="/login" component={Auth} />
+                    <Redirect to="/login" />
+                </Switch>
+            );
+        } else {
+            routes = (
+                <Switch>
+                    <Route path="/" exact component={BurgerBuilder} />
+                    <Route path="/orders" component={Orders} />
+                    <Route path="/checkout" component={Checkout} />
+                    <Redirect to="/" />
+                </Switch>
+            );
+        }
+        return (
+            <div>
+                <Header />
+                <div className="container">{routes}</div>
+            </div>
+        );
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

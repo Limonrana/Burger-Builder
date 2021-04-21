@@ -23,10 +23,6 @@ class BurgerBuilder extends Component {
         isModalOpen: false,
     };
 
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     addIngredientHandle = (type) => {
         const { addIngredients, updatePurchasables } = this.props;
         addIngredients(type);
@@ -52,6 +48,7 @@ class BurgerBuilder extends Component {
     render() {
         const { ingredients, toatlPrice, isPurchasable } = this.props;
         const { isModalOpen } = this.state;
+        document.title = 'Burger Builder';
         return (
             <div>
                 <div className="d-flex flex-md-row flex-column">
